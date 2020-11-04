@@ -8,12 +8,11 @@ namespace RefillApi.Models
 {
     public class RefillOrder
     {
-       public string SubscriptionID { get; set; }
-       public int RefillorderID { get; set; }
-
-       public DateTime RefillDate { get; set; }
-       
-       public int QuantityStatus { get; set; }
-        public Boolean Payment { get; set; }
+        public int Id { get; set; }
+        public DateTime RefillDate { get; set; }
+        public int DrugQuantity { get; set; }
+        public bool RefillDelivered { get; set; }
+        public bool Payment { get; set; }
+        public int SubscriptionId { get; set; }
     }
 }
