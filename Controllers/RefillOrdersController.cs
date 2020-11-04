@@ -48,7 +48,7 @@ namespace RefillApi.Controllers
             {
                 var content = new StringContent(JsonConvert.SerializeObject("hello"), Encoding.UTF8, "application/json");
 
-                using (var response = httpClient.PostAsync("https://localhost:44329/api/Subscribe/PostUnSubscribe/" + DrugId + "/" + Location, content).Result)
+                using (var response = httpClient.PostAsync("https://localhost:44329/api/DrugsApi/getDispatchableDrugStock/" + DrugId + "/" + Location, content).Result)
                 {
 
                     if (!response.IsSuccessStatusCode)
