@@ -17,8 +17,8 @@ namespace RefillApi.Controllers
         private List<RefillOrder> refill= new List<RefillOrder>()
         {
             new RefillOrder{ Id =1, RefillDate = Convert.ToDateTime("2020-11-24 12:12:00 PM"),DrugQuantity = 10, RefillDelivered=true,Payment=true, SubscriptionId=1},
-            new RefillOrder{ Id =1, RefillDate = Convert.ToDateTime("2020-11-24 12:12:00 PM"),DrugQuantity = 10, RefillDelivered=true,Payment=true, SubscriptionId=1},
-            new RefillOrder{ Id =1, RefillDate = Convert.ToDateTime("2020-11-24 12:12:00 PM"),DrugQuantity = 10, RefillDelivered=false,Payment=false, SubscriptionId=1}
+            new RefillOrder{ Id =2, RefillDate = Convert.ToDateTime("2020-11-24 12:12:00 PM"),DrugQuantity = 10, RefillDelivered=true,Payment=true, SubscriptionId=1},
+            new RefillOrder{ Id =3, RefillDate = Convert.ToDateTime("2020-11-24 12:12:00 PM"),DrugQuantity = 10, RefillDelivered=false,Payment=false, SubscriptionId=1}
         };
  
        [HttpGet("{id}")]
@@ -38,14 +38,41 @@ namespace RefillApi.Controllers
         [HttpPost("{PolicyId}/{MemberId}/{SubscriptionId}")]
         public IActionResult AdhocRefill([FromRoute]int PolicyId,int MemberId,int SubscriptionId)
         {
+            // drugId and Location is taken from subscription service with the help of MemberId
+            
            int DrugId=2;
            string Location="Haldwani";
            RefillOrder result=new RefillOrder();
-           
-           // call drug microservice
-           var check=true;
-           
-           return Ok(result);
+          
+            using (var httpClient = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject("hello"), Encoding.UTF8, "application/json");
+
+                using (var response = httpClient.PostAsync("https://localhost:44329/api/Subscribe/PostUnSubscribe/" + DrugId + "/" + Location, content).Result)
+                {
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return BadRequest();
+                    }
+
+                    var data = response.Content.ReadAsStringAsync().Result;
+
+                    var check = JsonConvert.DeserializeObject<bool>(data);
+
+                    if (check)
+                    {
+                        result.Id=9;
+                        result.RefillDate= DateTime.Now;
+                        result.DrugQuantity = 10;
+                        result.RefillDelivered=false;
+                        result.Payment=false;
+                        result.SubscriptionId=SubscriptionId;
+                    }
+                    
+                    return Ok(result);
+                }
+            }
         }
     }
 }
