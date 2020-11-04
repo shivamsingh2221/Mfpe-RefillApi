@@ -12,114 +12,40 @@ namespace RefillApi.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class RefillOrdersController : ControllerBase
-    {
-
+    {     
         //static readonly log4net.ILog _log4net = log4net.LogManager.GetLogger(typeof(RefillOrdersController));
-        public static List<RefillOrder> refillorders = new List<RefillOrder>()
+        private List<RefillOrder> refill= new List<RefillOrder>()
         {
-            new RefillOrder()
-            {
-                SubscriptionID ="F1",
-                RefillorderID =101,
-                //RefillDate = Convert.ToDateTime("2020-12-12 12:10:00.0000000"),
-                RefillDate =new DateTime(2020,12,12),
-                QuantityStatus = 10,
-                Payment=true
-            },
-             new RefillOrder()
-             {
-                  SubscriptionID ="F2",
-                RefillorderID =102,
-               // RefillDate = Convert.ToDateTime("2020-10-3 12:10:00.0000000"),
-                RefillDate =new DateTime(2020,10,12),
-                QuantityStatus = 5,
-                 Payment = true
-             },
-
-              new RefillOrder()
-             {
-                  SubscriptionID ="F2",
-                RefillorderID =102,
-               // RefillDate = Convert.ToDateTime("2020-10-3 12:10:00.0000000"),
-                RefillDate =new DateTime(2020,10,12),
-                QuantityStatus = 10000,
-              Payment = false
-                }
+            new RefillOrder{ Id =1, RefillDate = Convert.ToDateTime("2020-11-24 12:12:00 PM"),DrugQuantity = 10, RefillDelivered=true,Payment=true, SubscriptionId=1},
+            new RefillOrder{ Id =1, RefillDate = Convert.ToDateTime("2020-11-24 12:12:00 PM"),DrugQuantity = 10, RefillDelivered=true,Payment=true, SubscriptionId=1},
+            new RefillOrder{ Id =1, RefillDate = Convert.ToDateTime("2020-11-24 12:12:00 PM"),DrugQuantity = 10, RefillDelivered=false,Payment=false, SubscriptionId=1}
         };
-        [HttpGet]
-        public List<RefillOrder> GetRefillOrders()
-        {
-            return refillorders;
-        }
-
-
-
-        public static List<RefillOrderLine> refillorderlines = new List<RefillOrderLine>()
-            {
-             new RefillOrderLine()
-             {
-                    SubscriptionID = "F1",
-                    RefillorderID = 101,
-                    DrugsList = "A , B ,C",
-                    QuantityStatus = 10
-            }
-           };
-
-        [HttpGet]
-        public List<RefillOrderLine> GetRefillOrderLines()
-        {
-
-
-            return refillorderlines;
-        }
-
-
-
-
-
+ 
        [HttpGet("{id}")]
-        public RefillOrder viewRefillStatus(string id)
+        public IActionResult RefillStatus(int id)
         {
-
-
-            /* RefillOrder order = (from p in refillorders
-                                  where p.SubscriptionID.Contains(id)
-                                   select p).ToList();*/
-
-            //var order = RefillOrder
-
-          /*  RefillOrder order = Models.RefillOrder
-                                      .where(a => a.SubscriptionID.Contains(id));*/
-
-
-            var result = refillorders.Last(x->(x.SubscriptionId==id ) && ()
-
-            return order;
-            // return _item.Get(id);
+            var result = refill.Last( x => (x.SubscriptionId == id) && (x.RefillDelivered) && (x.Payment) );       
+            return Ok(result);
         }
 
-
-
-        
-
-        [HttpGet("{dt}")]
-        public RefillOrder GetByName(DateTime dt)
+        [HttpGet("{id}")]
+        public IActionResult RefillDues(int id)
         {
-
-            RefillOrder order = (from p in refillorders
-                                           where p.RefillDate <= dt
-                                           select p).FirstOrDefault();
-            return order;
-
-
-            //return _item.Get(dt);
+            var result = refill.Count( x => (x.SubscriptionId == id) && (!x.RefillDelivered) && (!x.Payment) );  
+            return Ok(result);
         }
         
-
-
-
-
-
-
+        [HttpPost("{PolicyId}/{MemberId}/{SubscriptionId}")]
+        public IActionResult AdhocRefill([FromRoute]int PolicyId,int MemberId,int SubscriptionId)
+        {
+           int DrugId=2;
+           string Location="Haldwani";
+           RefillOrder result=new RefillOrder();
+           
+           // call drug microservice
+           var check=true;
+           
+           return Ok(result);
+        }
     }
 }
