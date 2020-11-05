@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\source\\repos\\RefillApi\\RefillApi.csproj": {}
+    "C:\\Users\\user\\Desktop\\MFPE\\Mfpe-RefillApi\\RefillApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\source\\repos\\RefillApi\\RefillApi.csproj": {
+    "C:\\Users\\user\\Desktop\\MFPE\\Mfpe-RefillApi\\RefillApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\RefillApi\\RefillApi.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\MFPE\\Mfpe-RefillApi\\RefillApi.csproj",
         "projectName": "RefillApi",
-        "projectPath": "C:\\Users\\user\\source\\repos\\RefillApi\\RefillApi.csproj",
+        "projectPath": "C:\\Users\\user\\Desktop\\MFPE\\Mfpe-RefillApi\\RefillApi.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\RefillApi\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\MFPE\\Mfpe-RefillApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
